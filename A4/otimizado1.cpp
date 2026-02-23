@@ -20,12 +20,23 @@ POLEMICA:
 Passagem por valor + uso de pow (muito mais lento que multiplicação direta)
 */
 double distancia(const Ponto& a, Ponto& b) {
-    
-    double dx = a.x -b.x;
-    double dy = a.y -b.y;
 
-    return sqrt(dx * dx  + dy * dy);
+    return sqrt((a.y -b.y) * (a.y -b.y)  + (a.x -b.x) * (a.x -b.x));
 }
+
+/*
+1. const Ponto&
+	•	Não copia
+	•	Passa referência
+	•	Garante que não será modificado
+
+2. dx * dx
+	•	Muito mais rápido que pow
+	•	Otimização automática pelo compilador
+	•	Evita chamada de função
+*/
+
+
 
 
 /*
@@ -44,6 +55,12 @@ vector<vector<double>> criarMatrizDistancias(vector<Ponto> pontos) {
 
     return matriz;
 }
+
+
+
+
+
+
 
 /*
 POLEMICA
