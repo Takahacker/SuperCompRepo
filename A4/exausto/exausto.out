@@ -1,0 +1,45 @@
+ 
+ 
+NUMERO = 9
+========== SEM OTIMIZACAAAOOOO ========
+Melhor custo: 1.79769e+308
+Tempo: 3.12886 segundos
+========= OTIMIZACAO 02 ===============
+Melhor custo: 1.79769e+308
+Tempo: 0.349519 segundos
+======== OTIMIZACAO O3 ===============
+Melhor custo: 1.79769e+308
+Tempo: 0.318747 segundos
+=========== OFAST ESSA ===============
+Melhor custo: 1.79769e+308
+Tempo: 0.161639 segundos
+ 
+ 
+NUMERO = 10
+========== SEM OTIMIZACAAAOOOO ========
+Melhor custo: 1.79769e+308
+Tempo: 35.3754 segundos
+========= OTIMIZACAO 02 ===============
+Melhor custo: 1.79769e+308
+Tempo: 3.72617 segundos
+======== OTIMIZACAO O3 ===============
+Melhor custo: 1.79769e+308
+Tempo: 3.34066 segundos
+=========== OFAST ESSA ===============
+Melhor custo: 1.79769e+308
+Tempo: 1.77419 segundos
+ 
+ 
+NUMERO = 11
+========== SEM OTIMIZACAAAOOOO ========
+Melhor custo: 1.79769e+308
+Tempo: 439.955 segundos
+========= OTIMIZACAO 02 ===============
+Melhor custo: 1.79769e+308
+Tempo: 44.0503 segundos
+======== OTIMIZACAO O3 ===============
+Melhor custo: 1.79769e+308
+Tempo: 38.8301 segundos
+=========== OFAST ESSA ===============
+Melhor custo: 1.79769e+308
+Tempo: 21.1579 segundos
