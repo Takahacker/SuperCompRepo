@@ -21,16 +21,16 @@ echo " "
 echo " "
 echo "NUMERO = "$number
 echo "========== SEM OTIMIZACAAAOOOO ========"
-./otimiza $number
+./otimizado $number
 
 echo "========= OTIMIZACAO 02 ==============="
-./otimiza_O2 $number
+./otimizado_O2 $number
 
 echo "======== OTIMIZACAO O3 ==============="
-./otimiza_O3 $number
+./otimizado_O3 $number
 
 echo "=========== OFAST ESSA ==============="
-./otimiza_Ofast $number
+./otimizado_Ofast $number
 
 # Executa os binários dentro do nó de computação.
 done
