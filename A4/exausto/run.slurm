@@ -1,4 +1,4 @@
-```#!/bin/bash
+#!/bin/bash
 #SBATCH --job=exausto
 # Define o nome do job. Esse nome aparece nas listas de jobs e é útil para identificar o job.
 
@@ -33,4 +33,4 @@ echo "=========== OFAST ESSA ==============="
 ./exausto_Ofast $number
 
 # Executa os binários dentro do nó de computação.
-done```
+done
