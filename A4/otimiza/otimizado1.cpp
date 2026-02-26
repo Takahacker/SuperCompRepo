@@ -15,10 +15,13 @@ struct Ponto {
     double y;
 };
 
+
 /*
 POLEMICA:
 Passagem por valor + uso de pow (muito mais lento que multiplicação direta)
 */
+
+
 double distancia(const Ponto& a, Ponto& b) {
 
     return sqrt((a.y -b.y) * (a.y -b.y)  + (a.x -b.x) * (a.x -b.x));
@@ -43,6 +46,7 @@ double distancia(const Ponto& a, Ponto& b) {
 POLEMICA:
 Função cria matriz de distâncias TODA VEZ que é chamada
 */
+
 vector<vector<double>> criarMatrizDistancias(vector<Ponto> pontos) {
     int n = pontos.size();
     vector<vector<double>> matriz(n, vector<double>(n));
@@ -52,20 +56,17 @@ vector<vector<double>> criarMatrizDistancias(vector<Ponto> pontos) {
             matriz[i][j] = distancia(pontos[i], pontos[j]);
         }
     }
-
     return matriz;
 }
-
-
-
-
-
-
 
 /*
 POLEMICA
 Recebe vetores por valor (cópia os dados a cada chamada)
+
 */
+
+
+
 double calcularCusto(Ponto motorista,
                      Ponto coleta,
                      vector<Ponto> entregas,
@@ -75,6 +76,7 @@ double calcularCusto(Ponto motorista,
 
     // POLEMICA:
     // Cria vetor auxiliar desnecessário
+
     vector<Ponto> todosPontos = entregas;
     todosPontos.push_back(coleta);
 
@@ -119,15 +121,18 @@ double calcularCusto(Ponto motorista,
     for (int i = 0; i < 1000; i++) {
         custo += 0;
     }
-
     return custo;
 }
+
 
 /*
 POLEMICA:
 Recursão recebe tudo por valor
-melhorCusto também por valor 
+melhorCusto também por valor
 */
+
+
+
 void permutar(Ponto motorista,
               Ponto coleta,
               vector<Ponto> entregas,
