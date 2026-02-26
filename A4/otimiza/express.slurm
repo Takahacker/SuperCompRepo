@@ -1,29 +1,17 @@
 #!/bin/bash
-#SBATCH --job=otimiza_express
-# Define o nome do job. Esse nome aparece nas listas de jobs e é útil para identificar o job.
-
+#SBATCH --job-name=otimiza_express
 #SBATCH --output=otimiza_express.out
-# Especifica o arquivo onde a saída padrão (stdout) do job será salva.
-
 #SBATCH --ntasks=1
-# Define o número de tarefas que o job executará. Neste caso, o job executa uma única tarefa.
-
+#SBATCH --cpus-per-task=1
 #SBATCH --time=00:05:00
-# Define o tempo máximo de execução para o job. Neste caso, o job tem um tempo limite de 10 minutos. Se o job exceder esse tempo, ele será automaticamente encerrado.
-
 #SBATCH --partition=express
-# Especifica a partição (ou fila) onde o job será submetido. Aqui, o job será submetido a fila "normal".
+#SBATCH --mem=4G
 
-for number in 13
-do
+echo "Início: $(date)"
+echo "Nó: $(hostname)"
+echo "============================"
 
-echo " "
-echo " "
-echo "NUMERO = "$number
+./otimizado_Ofast 13
 
-
-echo "=========== Otimizado OFAST  ==============="
-./otimizado_Ofast $number
-
-# Executa os binários dentro do nó de computação.
-done
+echo "============================"
+echo "Fim: $(date)"
