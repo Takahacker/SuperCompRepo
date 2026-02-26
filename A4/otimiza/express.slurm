@@ -11,7 +11,7 @@
 #SBATCH --time=00:20:00
 # Define o tempo máximo de execução para o job. Neste caso, o job tem um tempo limite de 10 minutos. Se o job exceder esse tempo, ele será automaticamente encerrado.
 
-#SBATCH --partition=express*
+#SBATCH --partition=express
 # Especifica a partição (ou fila) onde o job será submetido. Aqui, o job será submetido a fila "normal".
 
 for number in 13
