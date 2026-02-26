@@ -1,0 +1,10 @@
+Job iniciado em Thu Feb 26 11:19:35 AM EST 2026
+Rodando no nó: compute10
+====================================
+
+NUMERO = 13
+=========== Otimizado OFAST ===============
+Melhor custo: 249.185
+Tempo: 10.7948 segundos
+====================================
+Job finalizado em Thu Feb 26 11:19:46 AM EST 2026

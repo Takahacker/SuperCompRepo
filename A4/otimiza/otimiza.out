@@ -1,0 +1,60 @@
+ 
+ 
+NUMERO = 9
+========== SEM OTIMIZACAAAOOOO ========
+Melhor custo: 165.295
+Tempo: 0.00886996 segundos
+========= OTIMIZACAO 02 ===============
+Melhor custo: 165.295
+Tempo: 0.00177296 segundos
+======== OTIMIZACAO O3 ===============
+Melhor custo: 165.295
+Tempo: 0.00210858 segundos
+=========== OFAST ESSA ===============
+Melhor custo: 165.295
+Tempo: 0.00211528 segundos
+ 
+ 
+NUMERO = 10
+========== SEM OTIMIZACAAAOOOO ========
+Melhor custo: 183.797
+Tempo: 0.0505703 segundos
+========= OTIMIZACAO 02 ===============
+Melhor custo: 183.797
+Tempo: 0.0105909 segundos
+======== OTIMIZACAO O3 ===============
+Melhor custo: 183.797
+Tempo: 0.0127206 segundos
+=========== OFAST ESSA ===============
+Melhor custo: 183.797
+Tempo: 0.013023 segundos
+ 
+ 
+NUMERO = 11
+========== SEM OTIMIZACAAAOOOO ========
+Melhor custo: 211.765
+Tempo: 0.617863 segundos
+========= OTIMIZACAO 02 ===============
+Melhor custo: 211.765
+Tempo: 0.124675 segundos
+======== OTIMIZACAO O3 ===============
+Melhor custo: 211.765
+Tempo: 0.149743 segundos
+=========== OFAST ESSA ===============
+Melhor custo: 211.765
+Tempo: 0.151128 segundos
+ 
+ 
+NUMERO = 13
+========== SEM OTIMIZACAAAOOOO ========
+Melhor custo: 249.185
+Tempo: 47.0624 segundos
+========= OTIMIZACAO 02 ===============
+Melhor custo: 249.185
+Tempo: 7.76281 segundos
+======== OTIMIZACAO O3 ===============
+Melhor custo: 249.185
+Tempo: 9.68221 segundos
+=========== OFAST ESSA ===============
+Melhor custo: 249.185
+Tempo: 9.59699 segundos
