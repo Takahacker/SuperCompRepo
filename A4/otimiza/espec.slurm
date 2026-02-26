@@ -1,28 +1,23 @@
 #!/bin/bash
-#SBATCH --job=otimiza_espec
-# Define o nome do job. Esse nome aparece nas listas de jobs e é útil para identificar o job.
-
+#SBATCH --job-name=otimiza_espec
 #SBATCH --output=otimiza_espec.out
-# Especifica o arquivo onde a saída padrão (stdout) do job será salva.
-
 #SBATCH --ntasks=1
-# Define o número de tarefas que o job executará. Neste caso, o job executa uma única tarefa.
-
+#SBATCH --cpus-per-task=1
 #SBATCH --time=00:20:00
-# Define o tempo máximo de execução para o job. Neste caso, o job tem um tempo limite de 10 minutos. Se o job exceder esse tempo, ele será automaticamente encerrado.
-
 #SBATCH --partition=espec
-# Especifica a partição (ou fila) onde o job será submetido. Aqui, o job será submetido a fila "normal".
+#SBATCH --mem=4G
+
+echo "Job iniciado em $(date)"
+echo "Rodando no nó: $(hostname)"
+echo "===================================="
 
 for number in 13
 do
-
-echo " "
-echo " "
-echo "NUMERO = "$number
-
-echo "=========== Otimizado OFAST  ==============="
-./otimizado_Ofast $number
-
-# Executa os binários dentro do nó de computação.
+    echo ""
+    echo "NUMERO = $number"
+    echo "=========== Otimizado OFAST ==============="
+    ./otimizado_Ofast $number
 done
+
+echo "===================================="
+echo "Job finalizado em $(date)"

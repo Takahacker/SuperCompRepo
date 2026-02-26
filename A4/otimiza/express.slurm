@@ -8,7 +8,7 @@
 #SBATCH --ntasks=1
 # Define o número de tarefas que o job executará. Neste caso, o job executa uma única tarefa.
 
-#SBATCH --time=00:20:00
+#SBATCH --time=00:05:00
 # Define o tempo máximo de execução para o job. Neste caso, o job tem um tempo limite de 10 minutos. Se o job exceder esse tempo, ele será automaticamente encerrado.
 
 #SBATCH --partition=express
