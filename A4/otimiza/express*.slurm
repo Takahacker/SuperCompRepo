@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --job=otimiza
+#SBATCH --job=otimiza_express
 # Define o nome do job. Esse nome aparece nas listas de jobs e é útil para identificar o job.
 
-#SBATCH --output=otimiza.out
+#SBATCH --output=otimiza_express.out
 # Especifica o arquivo onde a saída padrão (stdout) do job será salva.
 
 #SBATCH --ntasks=1
@@ -20,14 +20,7 @@ do
 echo " "
 echo " "
 echo "NUMERO = "$number
-echo "========== Otimizado sem flag ========"
-./otimizado $number
 
-echo "========= Otimizado 02 ==============="
-./otimizado_O2 $number
-
-echo "======== Otimizado O3 ==============="
-./otimizado_O3 $number
 
 echo "=========== Otimizado OFAST  ==============="
 ./otimizado_Ofast $number
