@@ -15,168 +15,87 @@ struct Ponto {
     double y;
 };
 
-
-/*
-POLEMICA:
-Passagem por valor + uso de pow (muito mais lento que multiplicação direta)
-*/
-
-
-double distancia(const Ponto& a, Ponto& b) {
-
-    return sqrt((a.y -b.y) * (a.y -b.y)  + (a.x -b.x) * (a.x -b.x));
+double distancia(const Ponto& a, const Ponto& b) {
+    const double dx = a.x - b.x;
+    const double dy = a.y - b.y;
+    return sqrt(dx * dx + dy * dy);
 }
 
-/*
-1. const Ponto&
-	•	Não copia
-	•	Passa referência
-	•	Garante que não será modificado
-
-2. dx * dx
-	•	Muito mais rápido que pow
-	•	Otimização automática pelo compilador
-	•	Evita chamada de função
-*/
-
-
-
-
-/*
-POLEMICA:
-Função cria matriz de distâncias TODA VEZ que é chamada
-*/
-
-vector<vector<double>> criarMatrizDistancias(vector<Ponto> pontos) {
-    int n = pontos.size();
-    vector<vector<double>> matriz(n, vector<double>(n));
+vector<vector<double>> criarMatrizDistancias(const vector<Ponto>& pontos) {
+    const int n = static_cast<int>(pontos.size());
+    vector<vector<double>> matriz(n, vector<double>(n, 0.0));
 
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            matriz[i][j] = distancia(pontos[i], pontos[j]);
+        for (int j = i + 1; j < n; j++) {
+            const double d = distancia(pontos[i], pontos[j]);
+            matriz[i][j] = d;
+            matriz[j][i] = d;
         }
     }
+
     return matriz;
 }
 
-/*
-POLEMICA
-Recebe vetores por valor (cópia os dados a cada chamada)
-
-*/
-
-
-
-double calcularCusto(Ponto motorista,
-                     Ponto coleta,
-                     vector<Ponto> entregas,
-                     vector<int> rota) {
-
-    double custo = 0.0;
-
-    // POLEMICA:
-    // Cria vetor auxiliar desnecessário
-
-    vector<Ponto> todosPontos = entregas;
-    todosPontos.push_back(coleta);
-
-    // POLEMICA:
-    // Recria matriz inteira a cada cálculo
-    vector<vector<double>> matriz = criarMatrizDistancias(todosPontos);
-
-    custo += distancia(motorista, coleta);
-
-    int carga = CAPACIDADE_MOTO;
-    Ponto atual = coleta;
-
-    for (int i = 0; i < rota.size(); i++) {
-
-        if (carga == 0) {
-            custo += distancia(atual, coleta);
-            atual = coleta;
-            carga = CAPACIDADE_MOTO;
-        }
-
-        // POLEMICA:
-        // Acesso indireto ruim para cache
-        Ponto destino = entregas.at(rota.at(i));
-
-        custo += distancia(atual, destino);
-
-        // POLEMICA:
-        // Ordenação inútil dentro do loop
-        sort(entregas.begin(), entregas.end(),
-            [](Ponto a, Ponto b) {
-                return a.x < b.x;
-            });
-
-        atual = destino;
-        carga--;
-    }
-
-    custo += distancia(atual, motorista);
-
-    // POLEMICA:
-    // Loop inútil que não altera nada
-    for (int i = 0; i < 1000; i++) {
-        custo += 0;
-    }
-    return custo;
-}
-
-
-/*
-POLEMICA:
-Recursão recebe tudo por valor
-melhorCusto também por valor
-*/
-
-
-
-void permutar(Ponto motorista,
-              Ponto coleta,
-              vector<Ponto> entregas,
-              vector<int> rota,
-              int inicio,
-              double melhorCusto,
-              vector<int> melhorRota) {
-
-    if (inicio == rota.size()) {
-
-        double custo = calcularCusto(motorista,
-                                     coleta,
-                                     entregas,
-                                     rota);
-
-        if (custo < melhorCusto) {
-            melhorCusto = custo;
-            melhorRota = rota;
-        }
-
+void permutarOtimizado(
+    vector<int>& rota,
+    int inicio,
+    int carga,
+    int pontoAtualIdx,
+    double custoAtual,
+    double& melhorCusto,
+    vector<int>& melhorRota,
+    const vector<vector<double>>& distancias
+) {
+    if (custoAtual >= melhorCusto) {
         return;
     }
 
-    for (int i = inicio; i < rota.size(); i++) {
+    if (inicio == static_cast<int>(rota.size())) {
+        const double custoTotal = custoAtual + distancias[pontoAtualIdx][0];
+        if (custoTotal < melhorCusto) {
+            melhorCusto = custoTotal;
+            melhorRota = rota;
+        }
+        return;
+    }
 
+    for (int i = inicio; i < static_cast<int>(rota.size()); i++) {
         swap(rota[inicio], rota[i]);
 
-        // POLEMICA:
-        // Aloca vetor temporário inútil
-        vector<int> lixo(rota.begin(), rota.end());
+        int cargaAtual = carga;
+        int atual = pontoAtualIdx;
+        double incremento = 0.0;
 
-        permutar(motorista,
-                 coleta,
-                 entregas,
-                 rota,
-                 inicio + 1,
-                 melhorCusto,
-                 melhorRota);
+        if (cargaAtual == 0) {
+            incremento += distancias[atual][1];
+            atual = 1;
+            cargaAtual = CAPACIDADE_MOTO;
+        }
+
+        const int destinoEntrega = 2 + rota[inicio];
+        incremento += distancias[atual][destinoEntrega];
+
+        permutarOtimizado(
+            rota,
+            inicio + 1,
+            cargaAtual - 1,
+            destinoEntrega,
+            custoAtual + incremento,
+            melhorCusto,
+            melhorRota,
+            distancias
+        );
 
         swap(rota[inicio], rota[i]);
     }
 }
 
 int main(int argc, char* argv[]) {
+
+    if (argc < 2) {
+        cout << "Uso: " << argv[0] << " <n>\n";
+        return 1;
+    }
 
     int n = atoi(argv[1]);
 
@@ -195,29 +114,46 @@ int main(int argc, char* argv[]) {
         {10,40}, {20,40}, {30,40}, {40,40}, {50,40}
     };
 
-    // Copia elemento por elemento
+    if (n > static_cast<int>(todos.size())) {
+        cout << "Numero invalido: maximo permitido = " << todos.size() << "\n";
+        return 1;
+    }
+
     vector<Ponto> entregas;
+    entregas.reserve(n);
     for (int i = 0; i < n; i++) {
         entregas.push_back(todos[i]);
     }
 
-    vector<int> rota;
+    vector<int> rota(n);
     for (int i = 0; i < n; i++) {
-        rota.push_back(i);
+        rota[i] = i;
     }
+
+    vector<Ponto> pontos;
+    pontos.reserve(n + 2);
+    pontos.push_back(motorista); // idx 0
+    pontos.push_back(coleta);    // idx 1
+    for (const Ponto& p : entregas) {
+        pontos.push_back(p);     // idx 2..n+1
+    }
+    const vector<vector<double>> distancias = criarMatrizDistancias(pontos);
 
     vector<int> melhorRota;
     double melhorCusto = numeric_limits<double>::max();
 
     auto inicioTempo = chrono::high_resolution_clock::now();
 
-    permutar(motorista,
-             coleta,
-             entregas,
-             rota,
-             0,
-             melhorCusto,
-             melhorRota);
+    permutarOtimizado(
+        rota,
+        0,
+        CAPACIDADE_MOTO,
+        1,
+        distancias[0][1],
+        melhorCusto,
+        melhorRota,
+        distancias
+    );
 
     auto fimTempo = chrono::high_resolution_clock::now();
     chrono::duration<double> tempo = fimTempo - inicioTempo;
